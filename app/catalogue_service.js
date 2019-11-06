@@ -23,24 +23,85 @@ const catalogue = [
 ];
 
 function countBooks() {
-  // Your code here
+  return catalogue.length
 }
 
-function checkBook(book) {
-  // Your code here
+function checkBook(title) {
+  //Loop through this array and return true or false
+  for (let i = 0; i < catalogue.length; i++) {
+    //Check if a value exists in the catalogue array
+    if (catalogue[i] === title) {
+      return true
+    }
+  }
+  return false
 }
 
 function countBooksByFirstLetter(letter) {
-  // Your code here
-}
-
+  
+  var count = 0;
+  
+  //Loop through array and find how many books begin with letter
+  for (let i = 0; i < catalogue.length; i++) {
+    const book = catalogue [i]
+    const firstChar = book[0]
+    if (firstChar === letter.toUpperCase()) {
+        count ++
+    }
+  }
+  return count;
+}  
+ 
 function countBooksByKeyword(keyword) {
-  // Your code here
+  keyword = keyword.toString ();
+  
+  var count = 0;
+
+  // List my array
+  for (let i = 0; i < catalogue.length; i++) {
+    // Make const title variable (= catalogue [i])
+    let title = catalogue [i].toLowerCase();
+    // Search title for keyword and save as num
+    let num = title.search(keyword.toLowerCase());
+    // If num is > -1 keyword exists
+    if (num > -1) {
+      // Return count
+      count++
+    }
+  }
+  return count
 }
 
-function getBooksByAuthor(author) {
-  // Your code here
+function getBooksByAuthor(word) {
+  word = word.toString ().toLowerCase();
+  var results = [];
+  
+  // List my array
+  for (let i = 0; i < catalogue.length; i++) {
+    // Make book = catalogue [i]
+    let book = catalogue [i].toLowerCase ();
+    // Have to isolate the author from each line (all charaters after "by")
+    let splitString = book.split(" by ");
+    // if author (splitString [1]) === word save the line into a array
+    // If num is > -1 keyword exists
+    if (splitString [1].toLowerCase ().search(word) > -1) {
+      results.push(catalogue [i]);
+    }
+  }
+  // Return array
+  console.log(results)
+  return results;
 }
+
+
+//Logic of the functions
+countBooksByFirstLetter("b")
+countBooksByKeyword("the")
+countBooksByKeyword(true)
+countBooksByKeyword(2123)
+countBooksByKeyword([1, 2, 3, 4])
+getBooksByAuthor("Charles")
+getBooksByAuthor("pineapple")
 
 module.exports = {
   countBooks,
@@ -48,4 +109,4 @@ module.exports = {
   countBooksByFirstLetter,
   countBooksByKeyword,
   getBooksByAuthor
-};
+}
